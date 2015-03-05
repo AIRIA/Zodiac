@@ -26,3 +26,9 @@
 *.exe
 *.out
 *.app
+
+#cocos2d codes
+cocos2d/
+
+#android tmp files
+
