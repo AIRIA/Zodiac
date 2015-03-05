@@ -27,8 +27,11 @@
 *.out
 *.app
 
-#cocos2d codes
+#cocos2d codes and dir
 cocos2d/
+bin/
+proj.android/assets/
+proj.android/obj/
 
 #android tmp files
 
