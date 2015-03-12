@@ -10,6 +10,7 @@
 #include "BaseSprite.h"
 #include "ElasticButton.h"
 #include "MainScene.h"
+#include "GameScene.h"
 
 bool HomeScene::init()
 {
@@ -37,9 +38,11 @@ void HomeScene::onEnter()
     auto start = ElasticButton::create("Button/blue_big_btn.png","");
     start->setPosition(Point(YZ_DESIGN_WIDTH/2,300));
     start->setTouchHandler([]()->void{
-        MainScene::create()->run();
+//        MainScene::create()->run();
+        GameScene::create()->run();
     });
     m_pBtm->addChild(start);
+    
     
 
 }

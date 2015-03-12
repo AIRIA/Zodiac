@@ -10,5 +10,13 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "GameScene::loadMap():GameScene.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "rowVal[1].GetString()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

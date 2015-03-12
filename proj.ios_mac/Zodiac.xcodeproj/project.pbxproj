@@ -24,6 +24,16 @@
 		416301DE1AAD43640031D5F3 /* LevelMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 416301DB1AAD43630031D5F3 /* LevelMap.cpp */; };
 		416301E11AAD77EF0031D5F3 /* YZTableView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 416301DF1AAD77EF0031D5F3 /* YZTableView.cpp */; };
 		416301E21AAD77EF0031D5F3 /* YZTableView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 416301DF1AAD77EF0031D5F3 /* YZTableView.cpp */; };
+		419F316D1AB13381005F044B /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 419F316B1AB13381005F044B /* GameScene.cpp */; };
+		419F316E1AB13381005F044B /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 419F316B1AB13381005F044B /* GameScene.cpp */; };
+		419F31701AB148AB005F044B /* Level in Resources */ = {isa = PBXBuildFile; fileRef = 419F316F1AB148AB005F044B /* Level */; };
+		419F31711AB148AB005F044B /* Level in Resources */ = {isa = PBXBuildFile; fileRef = 419F316F1AB148AB005F044B /* Level */; };
+		419F31751AB16EAB005F044B /* TileMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 419F31731AB16EAB005F044B /* TileMap.cpp */; };
+		419F31761AB16EAB005F044B /* TileMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 419F31731AB16EAB005F044B /* TileMap.cpp */; };
+		419F31791AB16EBE005F044B /* YZTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 419F31771AB16EBE005F044B /* YZTile.cpp */; };
+		419F317A1AB16EBE005F044B /* YZTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 419F31771AB16EBE005F044B /* YZTile.cpp */; };
+		419F317C1AB187F3005F044B /* Tile in Resources */ = {isa = PBXBuildFile; fileRef = 419F317B1AB187F3005F044B /* Tile */; };
+		419F317D1AB187F3005F044B /* Tile in Resources */ = {isa = PBXBuildFile; fileRef = 419F317B1AB187F3005F044B /* Tile */; };
 		41AF2DCE1AA84D10009BCB8D /* BaseLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AF2DCC1AA84D10009BCB8D /* BaseLayer.cpp */; };
 		41AF2DCF1AA84D10009BCB8D /* BaseLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AF2DCC1AA84D10009BCB8D /* BaseLayer.cpp */; };
 		41AF2DD41AA84DB4009BCB8D /* BaseScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AF2DD21AA84DB4009BCB8D /* BaseScene.cpp */; };
@@ -127,6 +137,14 @@
 		416301DC1AAD43640031D5F3 /* LevelMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMap.h; sourceTree = "<group>"; };
 		416301DF1AAD77EF0031D5F3 /* YZTableView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = YZTableView.cpp; sourceTree = "<group>"; };
 		416301E01AAD77EF0031D5F3 /* YZTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZTableView.h; sourceTree = "<group>"; };
+		419F316B1AB13381005F044B /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScene.cpp; sourceTree = "<group>"; };
+		419F316C1AB13381005F044B /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		419F316F1AB148AB005F044B /* Level */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Level; sourceTree = "<group>"; };
+		419F31731AB16EAB005F044B /* TileMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TileMap.cpp; sourceTree = "<group>"; };
+		419F31741AB16EAB005F044B /* TileMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileMap.h; sourceTree = "<group>"; };
+		419F31771AB16EBE005F044B /* YZTile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = YZTile.cpp; sourceTree = "<group>"; };
+		419F31781AB16EBE005F044B /* YZTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZTile.h; sourceTree = "<group>"; };
+		419F317B1AB187F3005F044B /* Tile */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Tile; sourceTree = "<group>"; };
 		41AF2DCC1AA84D10009BCB8D /* BaseLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseLayer.cpp; sourceTree = "<group>"; };
 		41AF2DCD1AA84D10009BCB8D /* BaseLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseLayer.h; sourceTree = "<group>"; };
 		41AF2DD11AA84D53009BCB8D /* CommonHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonHeader.h; sourceTree = "<group>"; };
@@ -291,6 +309,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		419F31721AB16B0E005F044B /* modal */ = {
+			isa = PBXGroup;
+			children = (
+				419F31731AB16EAB005F044B /* TileMap.cpp */,
+				419F31741AB16EAB005F044B /* TileMap.h */,
+				419F31771AB16EBE005F044B /* YZTile.cpp */,
+				419F31781AB16EBE005F044B /* YZTile.h */,
+			);
+			name = modal;
+			sourceTree = "<group>";
+		};
 		41AF2DCB1AA84673009BCB8D /* base */ = {
 			isa = PBXGroup;
 			children = (
@@ -327,6 +356,8 @@
 				41AF2DD81AA84DE8009BCB8D /* HomeScene.h */,
 				416301D71AAD3B790031D5F3 /* MainScene.cpp */,
 				416301D81AAD3B790031D5F3 /* MainScene.h */,
+				419F316B1AB13381005F044B /* GameScene.cpp */,
+				419F316C1AB13381005F044B /* GameScene.h */,
 			);
 			name = scenes;
 			sourceTree = "<group>";
@@ -334,6 +365,8 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				419F317B1AB187F3005F044B /* Tile */,
+				419F316F1AB148AB005F044B /* Level */,
 				416301CC1AA95B500031D5F3 /* Button */,
 				41AF2DDB1AA85620009BCB8D /* Map */,
 			);
@@ -344,6 +377,7 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				419F31721AB16B0E005F044B /* modal */,
 				41AF2DD61AA84DD4009BCB8D /* scenes */,
 				41AF2DD01AA84D23009BCB8D /* headers */,
 				41AF2DCB1AA84673009BCB8D /* base */,
@@ -513,7 +547,9 @@
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				416301CD1AA95B500031D5F3 /* Button in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
+				419F31701AB148AB005F044B /* Level in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
+				419F317C1AB187F3005F044B /* Tile in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
@@ -529,7 +565,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
+				419F31711AB148AB005F044B /* Level in Resources */,
 				416301CE1AA95B510031D5F3 /* Button in Resources */,
+				419F317D1AB187F3005F044B /* Tile in Resources */,
 				41AF2DDD1AA85620009BCB8D /* Map in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -545,14 +583,17 @@
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				416301E11AAD77EF0031D5F3 /* YZTableView.cpp in Sources */,
+				419F316D1AB13381005F044B /* GameScene.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				41AF2DD91AA84DE8009BCB8D /* HomeScene.cpp in Sources */,
+				419F31791AB16EBE005F044B /* YZTile.cpp in Sources */,
 				41AF2DE01AA85A89009BCB8D /* VisibleRect.cpp in Sources */,
 				416301D51AAD37190031D5F3 /* ElasticButton.cpp in Sources */,
 				416301DD1AAD43640031D5F3 /* LevelMap.cpp in Sources */,
 				41AF2DD41AA84DB4009BCB8D /* BaseScene.cpp in Sources */,
 				41AF2DCE1AA84D10009BCB8D /* BaseLayer.cpp in Sources */,
 				416301D11AA976D60031D5F3 /* BaseSprite.cpp in Sources */,
+				419F31751AB16EAB005F044B /* TileMap.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -564,6 +605,7 @@
 				41AF2DDA1AA84DE8009BCB8D /* HomeScene.cpp in Sources */,
 				416301DE1AAD43640031D5F3 /* LevelMap.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				419F31761AB16EAB005F044B /* TileMap.cpp in Sources */,
 				41AF2DE11AA85A89009BCB8D /* VisibleRect.cpp in Sources */,
 				416301D61AAD37190031D5F3 /* ElasticButton.cpp in Sources */,
 				416301D21AA976D60031D5F3 /* BaseSprite.cpp in Sources */,
@@ -571,7 +613,9 @@
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				41AF2DCF1AA84D10009BCB8D /* BaseLayer.cpp in Sources */,
 				41AF2DD51AA84DB4009BCB8D /* BaseScene.cpp in Sources */,
+				419F316E1AB13381005F044B /* GameScene.cpp in Sources */,
 				416301E21AAD77EF0031D5F3 /* YZTableView.cpp in Sources */,
+				419F317A1AB16EBE005F044B /* YZTile.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

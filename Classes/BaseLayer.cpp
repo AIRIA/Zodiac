@@ -26,6 +26,7 @@ Layer *BaseLayer::createLayer(Point anchorPos,Point pos)
 {
     auto part = Layer::create();
     part->setContentSize(Size(YZ_DESIGN_WIDTH,YZ_DESIGN_HEIGHT));
+    part->ignoreAnchorPointForPosition(false);
     part->setScale(m_fScaleFactor);
     part->setAnchorPoint(anchorPos);
     part->setPosition(pos);

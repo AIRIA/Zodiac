@@ -11,9 +11,8 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
-
-
 #include "VisibleRect.h"
+#include "tinyxml2/tinyxml2.h"
 
 using namespace cocos2d;
 using namespace cocos2d::extension;
