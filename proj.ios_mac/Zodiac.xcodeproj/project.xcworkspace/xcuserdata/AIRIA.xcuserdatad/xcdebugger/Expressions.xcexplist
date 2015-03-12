@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "HomeScene::onEnter()::$_0::operator()(BaseSprite*) const::&apos;lambda&apos;()::operator()() const:HomeScene.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "bs">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
