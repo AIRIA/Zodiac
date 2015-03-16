@@ -20,7 +20,10 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/ElasticButton.cpp \
                    ../../Classes/MainScene.cpp \
                    ../../Classes/LevelMap.cpp  \
-                   ../../Classes/YZTableView.cpp 
+                   ../../Classes/YZTableView.cpp \
+                   ../../Classes/GameScene.cpp \
+                   ../../Classes/TileMap.cpp \
+                   ../../Classes/YZTile.cpp \
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 

@@ -31,7 +31,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
         glview->setFrameSize(480, 800);
         director->setOpenGLView(glview);
     }
-
+    srand(time(nullptr));
     director->setDisplayStats(true);
     director->setAnimationInterval(1.0 / 60);
 

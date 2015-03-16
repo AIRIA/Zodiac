@@ -13,16 +13,18 @@
 #include "cocos-ext.h"
 #include "VisibleRect.h"
 #include "tinyxml2/tinyxml2.h"
+#include <vector>
 
 using namespace cocos2d;
 using namespace cocos2d::extension;
 
 using namespace std;
 
-//--------------------------------------
+//Mark:defines
 
 #define YZ_DESIGN_WIDTH 640
 #define YZ_DESIGN_HEIGHT 960
 #define YZ_SPRITE_NAME(url) Sprite::createWithSpriteFrameName(url)
+#define YZ_TILE_SIZE 80
 
 #endif
