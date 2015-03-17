@@ -74,9 +74,18 @@ public:
      */
     void updateTilePositionByRow();
     
+    /**
+     * 获取指定列的断层列 
+     * @param cols 存储断层的开始和结束行 
+     * @param row 从第几行开始检索
+     * @param col 检索第几列
+     */
+    std::vector<SubCol> &getSubCols(std::vector<SubCol> &cols,int row, int col);
+    
     
     /**
      * 按照列的方式检索是否有可以填充的新的tile的位置
+     * 一列可能会被分割成了多个小的断层 需要分开判断
      */
     void updateTilePositionByCol();
     
@@ -97,6 +106,7 @@ public:
     
     Vector<YZTile*> tiles;
     
+    // setter & getter
     CC_SYNTHESIZE(int, m_iRows, Rows);
     CC_SYNTHESIZE(int, m_iCols, Cols);
     

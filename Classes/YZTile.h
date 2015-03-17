@@ -17,8 +17,8 @@ enum TileType{
     kYZ_EXIST=2
 };
 
-#define YZ_DELAY_CHECK 0.2f
-#define YZ_MOVE_DOWN_DURATION 0.2f
+#define YZ_DELAY_CHECK 1.2f
+#define YZ_MOVE_DOWN_DURATION 1.2f
 
 class Route
 {
@@ -26,6 +26,13 @@ public:
     Route();
     Route(int r,int c):row(r),col(c){};
     int row,col;
+};
+
+class SubCol
+{
+public:
+    SubCol(int b,int e):began(b),end(e){};
+    int began,end;
 };
 
 class YZTile:public Node

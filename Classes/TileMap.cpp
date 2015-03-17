@@ -37,8 +37,17 @@ void TileMap::onEnter()
     
     srand(time(nullptr));
     
-    updateTilePositionByCol();
-//    updateTilePostionByRow();
+    
+    for (auto col=0; col<m_iCols; col++)
+    {
+        vector<SubCol> cols;
+        getSubCols(cols, 0, col);
+        log("sub cols num:%ld",cols.size());
+    }
+    
+    
+
+//    updateTilePositionByCol();
 }
 
 // MARK: 逻辑方法和游戏业务相关
@@ -134,28 +143,22 @@ void TileMap::updateTilePositionByCol()
         {
             auto tile = getTileByCoordinate(row, col);
             
-            if (tile)
+            if(tile && tile->getTileType()==kYZ_EXIST)
             {
-                if (tile->getTileType()==kYZ_EMPTY) {
-
-                }
-                else if(tile->getTileType()==kYZ_EXIST)
+                //move down
+                auto emptyNum = getEmptyNumUnderRow(row, col);
+                if(emptyNum==0)
                 {
-                    //move down
-                    auto emptyNum = getEmptyNumUnderRow(row, col);
-                    if(emptyNum==0)
-                    {
-                        continue;
-                    }
-                    auto targetTile = getTileByCoordinate(row-emptyNum, col);
-                    auto targetTilePos = targetTile->getPosition();
-                    targetTile->setPosition(tile->getPosition());
-                    swapTile(targetTile, tile);
-                    auto moveAct = MoveTo::create(YZ_MOVE_DOWN_DURATION*emptyNum, targetTilePos);
-                    tile->runAction(Sequence::create(moveAct, nullptr));
+                    continue;
                 }
-                
+                auto targetTile = getTileByCoordinate(row-emptyNum, col);
+                auto targetTilePos = targetTile->getPosition();
+                targetTile->setPosition(tile->getPosition());
+                swapTile(targetTile, tile);
+                auto moveAct = MoveTo::create(YZ_MOVE_DOWN_DURATION*emptyNum, targetTilePos);
+                tile->runAction(Sequence::create(moveAct, nullptr));
             }
+            
         }
     }
     
@@ -165,10 +168,8 @@ void TileMap::updateTilePositionByCol()
         log("---------%d--------",col);
         printDataByCol(col);
         this->fillEmptyFromTop(col);
-        
-
     }
-    
+    //每一列的断层处 需要从斜方向寻找元素的来源 如果是顶层则从上方获取元素
     
 }
 
@@ -181,7 +182,7 @@ void TileMap::updateTilePositionByRow()
      * 全部的元素都找到自己的目标位置以后 开始执行动画 来移动到相应的位置
      */
     
-    for (auto row=1; row<m_iRows; row++)
+    for (auto row=m_iRows-1; row>-1; row--)
     {
         
         for (auto col=0; col<m_iCols; col++)
@@ -415,4 +416,53 @@ void TileMap::printDataByCol(int col)
         }
 
     }
+}
+
+std::vector<SubCol> &TileMap::getSubCols(std::vector<SubCol> &cols,int row, int col )
+{
+    /**
+     * 从第一个不是disabled的地方 开始 到第一个disable的地方结束 为一列
+     */
+    
+    auto began = row,end = 0;
+    bool flag = true;
+    for (; row<m_iRows;row++)
+    {
+        auto tile = getTileByCoordinate(row, col);
+        if (tile)
+        {
+            if (row==m_iRows-1)
+            {
+                end = m_iRows;
+                break;
+            }
+            if (flag==false)
+            {
+                continue;
+            }
+            else
+            {
+                flag = false;
+            }
+            
+            began = row;
+            
+        }
+        else
+        {
+            end = row;
+            break;
+        }
+    }
+    if (end>began)
+    {
+//        log("began:%d,end:%d,col:%d",began,end,col);
+        cols.push_back(SubCol(began,end));
+    }
+    if (row<m_iRows)
+    {
+        getSubCols(cols, end+1, col);
+    }
+    return cols;
+
 }
