@@ -40,9 +40,10 @@ void TileMap::onEnter()
     
     for (auto col=0; col<m_iCols; col++)
     {
-        vector<SubCol> cols;
-        getSubCols(cols, 0, col);
-        log("sub cols num:%ld",cols.size());
+//        vector<SubCol> cols;
+//        getSubCols(cols, 0, col);
+//        log("sub cols num:%ld",cols.size());
+        updateSubColsForCol(col);
     }
     
     
@@ -313,6 +314,50 @@ void TileMap::fillEmptyFromTop(int col)
     log("changed over");
 }
 
+void TileMap::updateSubColsForCol(int col)
+{
+    vector<SubCol> subCols;
+    getSubCols(subCols, 0, col);
+    
+    for (auto subCol : subCols) {
+        
+        for (auto row=subCol.began; row<subCol.end; row++)
+        {
+            auto tile = getTileByCoordinate(row, col);
+            
+            if(tile && tile->getTileType()==kYZ_EXIST)
+            {
+                //move down
+                auto emptyNum = getEmptyBlockNumFromSubCol(subCol, row, col);
+                if(emptyNum==0)
+                {
+                    continue;
+                }
+                auto targetTile = getTileByCoordinate(row-emptyNum, col);
+                auto targetTilePos = targetTile->getPosition();
+                targetTile->setPosition(tile->getPosition());
+                swapTile(targetTile, tile);
+                auto moveAct = MoveTo::create(YZ_MOVE_DOWN_DURATION*emptyNum, targetTilePos);
+                tile->runAction(Sequence::create(moveAct, nullptr));
+            }
+            
+        }
+    }
+}
+
+int TileMap::getEmptyBlockNumFromSubCol(SubCol sc,int row, int col)
+{
+    auto emptyNum = 0;
+    for (auto i=sc.began; i<row; i++)
+    {
+        auto tile = getTileByCoordinate(i, col);
+        if (tile && tile->getTileType()==TileType::kYZ_EMPTY)
+        {
+            emptyNum++;
+        }
+    }
+    return emptyNum;
+}
 
 
 // MARK:辅助型的方法

@@ -82,6 +82,19 @@ public:
      */
     std::vector<SubCol> &getSubCols(std::vector<SubCol> &cols,int row, int col);
     
+    /**
+     * 更新一列中的子列
+     * @param col 指定的列
+     */
+    void updateSubColsForCol(int col);
+    
+    /**
+     * 获取指定列里面子列中空白的格子数量
+     * @param sc 子列 
+     * @param col 母列
+     * @param row 行
+     */
+    int getEmptyBlockNumFromSubCol(SubCol sc,int row,int col);
     
     /**
      * 按照列的方式检索是否有可以填充的新的tile的位置
@@ -91,6 +104,7 @@ public:
     
     /**
      * 打印指定列的类型数据
+     * @param col 要打印的列
      */
     void printDataByCol(int col);
     
