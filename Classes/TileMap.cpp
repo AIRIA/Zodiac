@@ -14,6 +14,8 @@ bool TileMap::init()
     return true;
 }
 
+//MARK:parent method
+
 void TileMap::onEnter()
 {
     Node::onEnter();
@@ -35,12 +37,15 @@ void TileMap::onEnter()
     
     srand(time(nullptr));
     
-    updateTilePostion();
+    updateTilePositionByCol();
+//    updateTilePostionByRow();
 }
+
+// MARK: 逻辑方法和游戏业务相关
 
 void TileMap::load(std::string mapName)
 {
-    std::string jsonStr = FileUtils::getInstance()->getStringFromFile("Level/map.json");
+    std::string jsonStr = FileUtils::getInstance()->getStringFromFile(mapName);
     
     rapidjson::Document doc;
     doc.Parse<0>(jsonStr.c_str());
@@ -79,21 +84,6 @@ void TileMap::load(std::string mapName)
 
 
 
-YZTile *TileMap::getTileByCoordinate(int row, int col)
-{
-    if (col==m_iCols || col==-1 || row==m_iRows || row==-1)
-    {
-        return nullptr;
-    }
-    
-    auto idx = row*m_iCols+col;
-    auto tile = tiles.at(idx);
-    if (tile->getTileType()==TileType::kYZ_DISABLE)
-    {
-        return nullptr;
-    }
-    return tiles.at(idx);
-}
 
 void TileMap::getNextRoutes(YZTile *tile,int row,int col)
 {
@@ -106,15 +96,15 @@ void TileMap::getNextRoutes(YZTile *tile,int row,int col)
     
     Route route = Route(row-1,-1);
     
-    if (downTile && downTile->getTileType()==TileType::kYZ_NORMAL)
+    if (downTile && downTile->getTileType()==TileType::kYZ_EMPTY)
     {
         route.col = col;
     }
-    else if(leftTile && leftTile->getTileType()==TileType::kYZ_NORMAL)
+    else if(leftTile && leftTile->getTileType()==TileType::kYZ_EMPTY)
     {
         route.col = col-1;
     }
-    else if(rightTile && rightTile->getTileType()==TileType::kYZ_NORMAL)
+    else if(rightTile && rightTile->getTileType()==TileType::kYZ_EMPTY)
     {
         route.col = col+1;
     }
@@ -136,7 +126,53 @@ void TileMap::getNextRoutes(YZTile *tile,int row,int col)
     
 }
 
-void TileMap::updateTilePostion()
+void TileMap::updateTilePositionByCol()
+{
+    for (auto col=0; col<m_iCols; col++)
+    {
+        for (auto row=1; row<m_iRows; row++)
+        {
+            auto tile = getTileByCoordinate(row, col);
+            
+            if (tile)
+            {
+                if (tile->getTileType()==kYZ_EMPTY) {
+
+                }
+                else if(tile->getTileType()==kYZ_EXIST)
+                {
+                    //move down
+                    auto emptyNum = getEmptyNumUnderRow(row, col);
+                    if(emptyNum==0)
+                    {
+                        continue;
+                    }
+                    auto targetTile = getTileByCoordinate(row-emptyNum, col);
+                    auto targetTilePos = targetTile->getPosition();
+                    targetTile->setPosition(tile->getPosition());
+                    swapTile(targetTile, tile);
+                    auto moveAct = MoveTo::create(YZ_MOVE_DOWN_DURATION*emptyNum, targetTilePos);
+                    tile->runAction(Sequence::create(moveAct, nullptr));
+                }
+                
+            }
+        }
+    }
+    
+    //开始检测每一列的最上方是否有空白的地方
+    for(auto col=0;col<m_iCols;col++)
+    {
+        log("---------%d--------",col);
+        printDataByCol(col);
+        this->fillEmptyFromTop(col);
+        
+
+    }
+    
+    
+}
+
+void TileMap::updateTilePositionByRow()
 {
     /**
      * 按行更新 从倒数第二行开始遍历 最后一行不可能会再下落
@@ -152,7 +188,7 @@ void TileMap::updateTilePostion()
         {
             
             auto tile = getTileByCoordinate(row, col);
-            if (tile && tile->getTileType()!=TileType::kYZ_NORMAL)
+            if (tile && tile->getTileType()!=TileType::kYZ_EMPTY)
             {
                 log("currow:%d,curcol:%d",tile->getRow(),tile->getCol());
                 getNextRoutes(tile);
@@ -181,7 +217,7 @@ void TileMap::checkEmptyBlock()
     for (auto col=0; col<m_iCols; col++)
     {
         auto tile = getTileByCoordinate(m_iRows-1, col);
-        if (tile && tile->getTileType()==TileType::kYZ_NORMAL)
+        if (tile && tile->getTileType()==TileType::kYZ_EMPTY)
         {
             tile->createRandomElement();
             getNextRoutes(tile);
@@ -198,6 +234,87 @@ void TileMap::checkEmptyBlock()
     }
     
 }
+
+
+void TileMap::fillEmptyBlockByCol(int col)
+{
+    
+    auto emptyNum = 0;
+    for (auto row=0; row<m_iRows; row++)
+    {
+        auto tile = getTileByCoordinate(row, col);
+        if (tile)
+        {
+            if (tile->getTileType()==kYZ_EMPTY) {
+                emptyNum++;
+                if (row==m_iRows-1) {
+
+                }
+                
+            }
+            else if(tile->getTileType()==kYZ_EXIST)
+            {
+                //move down
+                auto targetTile = getTileByCoordinate(row-emptyNum, col);
+                auto targetTilePos = targetTile->getPosition();
+                targetTile->setPosition(tile->getPosition());
+                swapTile(targetTile, tile);
+                auto moveAct = MoveTo::create(YZ_MOVE_DOWN_DURATION*emptyNum, targetTilePos);
+                tile->runAction(Sequence::create(moveAct, nullptr));
+            }
+            
+        }
+    }
+    
+    
+//    bool flag = false; //表示是否有列的顶端元素移动位置了
+//    for (auto col=0; col<m_iCols; col++)
+//    {
+//        auto topTile = getTopTile(col);
+//        getNextRoutes(topTile);
+//        if(topTile->routes.size()>0)
+//        {
+//            flag = true;
+//            topTile->updatePosition();
+//        }
+//    }
+//    if (flag) {
+//        delayRun(YZ_DELAY_CHECK, [this]()->void{
+//            this->fillEmptyBlockByCol();
+//        });
+//    }
+}
+
+void TileMap::fillEmptyFromTop(int col)
+{
+    auto row = m_iRows - 1;
+    auto tile = getTileByCoordinate(row, col);
+    if (tile && tile->getTileType()==TileType::kYZ_EMPTY)
+    {
+        auto emptyNum = getEmptyNumByCol(col);
+        if (emptyNum==0) {
+            return;
+        }
+
+        auto targetTile = getTileByCoordinate(m_iRows-emptyNum, col);
+        auto targetTilePos = targetTile->getPosition();
+        targetTile->setPosition(tile->getPosition());
+        tile->createRandomElement();
+        swapTile(targetTile, tile);
+        tile->setPosition(Point(YZ_TILE_SIZE*tile->getCol(),YZ_TILE_SIZE*(m_iRows)));
+        auto moveAct = MoveTo::create(YZ_MOVE_DOWN_DURATION*emptyNum, Point(YZ_TILE_SIZE*tile->getCol(),YZ_TILE_SIZE*(m_iRows-emptyNum)));
+        tile->runAction(Sequence::create(moveAct, nullptr));
+
+        delayRun(YZ_DELAY_CHECK, [col,this]()->void{
+            this->fillEmptyFromTop(col);
+        });
+    }
+    log("changed over");
+}
+
+
+
+// MARK:辅助型的方法
 
 void TileMap::swapTile(YZTile *t1, YZTile *t2)
 {
@@ -221,4 +338,81 @@ void TileMap::delayRun(float duration,const std::function<void()> &handler)
     
     auto delay = DelayTime::create(duration);
     runAction(Sequence::create(delay,calllater, nullptr));
+}
+
+YZTile *TileMap::getTileByCoordinate(int row, int col)
+{
+    if (col==m_iCols || col==-1 || row==m_iRows || row==-1)
+    {
+        return nullptr;
+    }
+    
+    auto idx = row*m_iCols+col;
+    auto tile = tiles.at(idx);
+    if (tile->getTileType()==TileType::kYZ_DISABLE)
+    {
+        return nullptr;
+    }
+    return tiles.at(idx);
+}
+
+YZTile *TileMap::getTopTile(int col)
+{
+    for (auto row=m_iRows-1; row>-1; row--)
+    {
+        //如果顶层是空的需要创建一个新的
+        auto tile = getTileByCoordinate(row, col);
+        if(row==(m_iRows-1) && tile && tile->getTileType()==TileType::kYZ_EMPTY)
+        {
+            tile->createRandomElement();
+            return tile;
+        }
+        if (tile==nullptr || tile->getTileType()==TileType::kYZ_EMPTY)
+        {
+            continue;
+        }
+        return tile;
+    }
+    return nullptr;
+}
+
+int TileMap::getEmptyNumByCol(int col)
+{
+    auto emptyNum = 0;
+    for (auto row=0; row<m_iRows; row++)
+    {
+        auto tile = getTileByCoordinate(row, col);
+        if (tile)
+        {
+            if (tile->getTileType()==kYZ_EMPTY) {
+                emptyNum++;
+            }
+        }
+    }
+    return emptyNum;
+}
+
+int TileMap::getEmptyNumUnderRow(int row, int col)
+{
+    auto emptyNum = 0;
+    for (auto i=0; i<row; i++)
+    {
+        auto tile = getTileByCoordinate(i, col);
+        if (tile && tile->getTileType()==TileType::kYZ_EMPTY)
+        {
+            emptyNum++;
+        }
+    }
+    return emptyNum;
+}
+
+void TileMap::printDataByCol(int col)
+{
+    for (auto row=0; row<m_iRows; row++) {
+        auto tile = getTileByCoordinate(row, col);
+        if (tile) {
+            log("row:%d,col:%d,type:%d",row,col,tile->getTileType());
+        }
+
+    }
 }

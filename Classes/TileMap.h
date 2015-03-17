@@ -45,9 +45,52 @@ public:
     void checkEmptyBlock();
     
     /**
+     * 按照列的方式检测每一列的顶层是否可以往下落 
+     */
+    void fillEmptyBlockByCol(int col);
+    
+    /**
+     * 从指定列的顶部去填充下面空白的位置
+     */
+    void fillEmptyFromTop(int col);
+    
+    /**
+     * 获取指定列的空白位置
+     */
+    int getEmptyNumByCol(int col);
+    
+    /**
+     * 获取指定坐标下方的空白位置
+     */
+    int getEmptyNumUnderRow(int row,int col);
+    
+    /**
      * 延迟执行
      */
     void delayRun(float duration,const std::function<void()> &handler);
+    
+    /**
+     * 按照行的方式检索是否有可以填充新tile的位置
+     */
+    void updateTilePositionByRow();
+    
+    
+    /**
+     * 按照列的方式检索是否有可以填充的新的tile的位置
+     */
+    void updateTilePositionByCol();
+    
+    /**
+     * 打印指定列的类型数据
+     */
+    void printDataByCol(int col);
+    
+    
+    /**
+     * 获取指定列顶端的元素
+     */
+    YZTile *getTopTile(int col);
+    
     
 //    /* 初始化地图阵型的背景 */
 //    void initMapBlock();
@@ -59,7 +102,7 @@ public:
     
     
     
-    void updateTilePostion();
+    
     
 };
 

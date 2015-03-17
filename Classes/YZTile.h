@@ -12,13 +12,13 @@
 #include "CommonHeader.h"
 
 enum TileType{
-    kYZ_NORMAL=0,  // 可以放置元素
+    kYZ_EMPTY=0,  // 可以放置元素
     kYZ_DISABLE=1, // 无法放置元素
     kYZ_EXIST=2
 };
 
-#define YZ_DELAY_CHECK 1.2f
-#define YZ_MOVE_DOWN_DURATION 1.2f
+#define YZ_DELAY_CHECK 0.2f
+#define YZ_MOVE_DOWN_DURATION 0.2f
 
 class Route
 {

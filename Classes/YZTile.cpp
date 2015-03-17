@@ -61,7 +61,7 @@ void YZTile::onEnter()
     Node::onEnter();
     auto isShow = rand()%10;
     setPosition(Point(YZ_TILE_SIZE*getCol(),YZ_TILE_SIZE*getRow()));
-    if (isShow >5) {
+    if (isShow >4) {
         return;
     }
     createRandomElement();
