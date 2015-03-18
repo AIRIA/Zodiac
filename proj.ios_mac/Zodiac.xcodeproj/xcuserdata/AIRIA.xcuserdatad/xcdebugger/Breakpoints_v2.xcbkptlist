@@ -11,12 +11,112 @@
             condition = "col==3"
             continueAfterRunningActions = "No"
             filePath = "../Classes/TileMap.cpp"
-            timestampString = "448275731.112183"
+            timestampString = "448357356.42353"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "473"
-            endingLineNumber = "473"
+            startingLineNumber = "623"
+            endingLineNumber = "623"
             landmarkName = "TileMap::getSubCols(std::vector&lt;SubCol&gt; &amp;cols,int row, int col )"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            condition = "col==1"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/TileMap.cpp"
+            timestampString = "448357356.42353"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "353"
+            endingLineNumber = "353"
+            landmarkName = "TileMap::fillEmptyBlockForSubCol(SubCol subCol, int col)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/TileMap.cpp"
+            timestampString = "448352263.749497"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "TileMap::getNextRoutes(YZTile *tile,int row,int col)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            condition = "col==1"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/TileMap.cpp"
+            timestampString = "448357356.42353"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "358"
+            endingLineNumber = "358"
+            landmarkName = "TileMap::fillEmptyBlockForSubCol(SubCol subCol, int col)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            condition = "col==1"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/TileMap.cpp"
+            timestampString = "448357356.42353"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "378"
+            endingLineNumber = "378"
+            landmarkName = "TileMap::fillEmptyBlockForSubCol(SubCol subCol, int col)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/TileMap.cpp"
+            timestampString = "448352263.749497"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "TileMap::getNextRoutes(YZTile *tile,int row,int col)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            condition = "col==1"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/TileMap.cpp"
+            timestampString = "448357356.42353"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "388"
+            endingLineNumber = "388"
+            landmarkName = "TileMap::fillEmptyBlockForSubCol(SubCol subCol, int col)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

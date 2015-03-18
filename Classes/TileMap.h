@@ -86,7 +86,7 @@ public:
      * 更新一列中的子列
      * @param col 指定的列
      */
-    void updateSubColsForCol(int col);
+    void updateSubCols();
     
     /**
      * 获取指定列里面子列中空白的格子数量
@@ -95,6 +95,22 @@ public:
      * @param row 行
      */
     int getEmptyBlockNumFromSubCol(SubCol sc,int row,int col);
+    
+    /**
+     * 填充指定列中子列的空白位置 如果子列的顶部 无法获取新的元素 需要向斜上方查找
+     * @return 如果存在空白列 返回true 
+     */
+    bool fillEmptyBlockForSubCol(SubCol sc,int col);
+    
+    /**
+     * 检测是否有空白的位置存在
+     */
+    void detectEmptyBlock();
+    
+    /**
+     * 查找每一咧不连续的空白处 并且是他们变成连续的
+     */
+    void findEmptyBlockForSubColAndReorder(SubCol sc,int col);
     
     /**
      * 按照列的方式检索是否有可以填充的新的tile的位置
@@ -107,6 +123,17 @@ public:
      * @param col 要打印的列
      */
     void printDataByCol(int col);
+    
+    /**
+     * 打印指定行的类型数据
+     * @param row 要打印的行
+     */
+    void printDataByRow(int row);
+    
+    /**
+     * 打印当前的阵型数据
+     */
+    void printData();
     
     
     /**

@@ -12,9 +12,9 @@
 #include "CommonHeader.h"
 
 enum TileType{
-    kYZ_EMPTY=0,  // 可以放置元素
+    kYZ_EMPTY=0,   // 可以放置元素
     kYZ_DISABLE=1, // 无法放置元素
-    kYZ_EXIST=2
+    kYZ_EXIST=2    //普通元素
 };
 
 #define YZ_DELAY_CHECK 1.2f
