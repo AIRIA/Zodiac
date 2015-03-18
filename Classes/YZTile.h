@@ -17,8 +17,8 @@ enum TileType{
     kYZ_EXIST=2    //普通元素
 };
 
-#define YZ_DELAY_CHECK 1.2f
-#define YZ_MOVE_DOWN_DURATION 1.2f
+#define YZ_DELAY_CHECK 0.2f
+#define YZ_MOVE_DOWN_DURATION 0.2f
 
 class Route
 {
@@ -58,6 +58,11 @@ public:
      */
     void createRandomElement();
     
+    /**
+     * 根据行列获取坐标
+     */
+    Point getPositionByCoordinate();
+    
     virtual void onEnter();
     
     /**
@@ -66,7 +71,7 @@ public:
     CC_SYNTHESIZE(TileType, tileType, TileType);
     CC_SYNTHESIZE(int, m_iRow, Row);
     CC_SYNTHESIZE(int, m_iCol, Col);
-    
+    CC_SYNTHESIZE(int, m_iVirtualRow, VirtualRow);
 };
 
 

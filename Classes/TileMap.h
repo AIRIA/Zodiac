@@ -103,9 +103,16 @@ public:
     bool fillEmptyBlockForSubCol(SubCol sc,int col);
     
     /**
+     * 让指定的tile下降到最底部 知道没有空白位置
+     */
+    void slideDownTargetTile(SubCol subCol,YZTile *tile);
+    
+    /**
      * 检测是否有空白的位置存在
      */
     void detectEmptyBlock();
+    
+    void createNewBlockBySubCol(SubCol subCol,int col,int virtualRow);
     
     /**
      * 查找每一咧不连续的空白处 并且是他们变成连续的

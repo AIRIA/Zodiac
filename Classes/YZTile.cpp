@@ -13,7 +13,7 @@ bool YZTile::init()
     if (!Node::init()) {
         return false;
     }
-    
+    m_iVirtualRow = 0;
     return true;
 }
 
@@ -56,11 +56,16 @@ void YZTile::createRandomElement()
     setTileType(TileType::kYZ_EXIST);
 }
 
+Point YZTile::getPositionByCoordinate()
+{
+    return Point(YZ_TILE_SIZE*getCol(),YZ_TILE_SIZE*getRow());
+}
+
 void YZTile::onEnter()
 {
     Node::onEnter();
     auto isShow = rand()%10;
-    setPosition(Point(YZ_TILE_SIZE*getCol(),YZ_TILE_SIZE*getRow()));
+    setPosition(getPositionByCoordinate());
     if (isShow >4) {
         return;
     }

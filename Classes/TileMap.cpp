@@ -50,7 +50,7 @@ void TileMap::onEnter()
 
 //    updateTilePositionByCol();
     
-    printData();
+//    printData();
 }
 
 // MARK: 逻辑方法和游戏业务相关
@@ -127,7 +127,7 @@ void TileMap::getNextRoutes(YZTile *tile,int row,int col)
         {
             auto it = --(tile->routes.end());
             auto targetTile = getTileByCoordinate(it->row, it->col);
-            targetTile->setPosition(tile->getPosition());
+            targetTile->setPosition(tile->getPositionByCoordinate());
             swapTile(tile, targetTile);
         }
         return;
@@ -342,13 +342,17 @@ void TileMap::detectEmptyBlock()
     }
     
     if (flag) {
-        detectEmptyBlock();
+        log("-------detected-------");
+        printData();
+//        updateSubCols();
+//        detectEmptyBlock();
+        
     }
 }
 
 bool TileMap::fillEmptyBlockForSubCol(SubCol subCol, int col)
 {
-
+//    findEmptyBlockForSubColAndReorder(subCol, col);
     auto topRow = subCol.end;
     if (topRow<m_iRows) //表示顶部无法获取新的元素 此时需要检测斜上方
     {
@@ -387,43 +391,43 @@ bool TileMap::fillEmptyBlockForSubCol(SubCol subCol, int col)
             getNextRoutes(topTile);
             log("col:%d--------斜下方移动元素 填充无法从顶部获得元素的列--------",col) ;
             printData();
-            delayRun(YZ_DELAY_CHECK, [subCol,col,this]()->void{
-                this->fillEmptyBlockForSubCol(subCol, col);
-            });
+//            delayRun(YZ_DELAY_CHECK, [subCol,col,this]()->void{
+//                this->fillEmptyBlockForSubCol(subCol, col);
+//            });
             return true;
         }
     }
     else //顶部直接可以产生元素 产生元素之前 还需要重复检测是否有不连续的空白位置
     {
-        findEmptyBlockForSubColAndReorder(subCol, col);
-        auto tile = getTileByCoordinate(m_iRows-1, col);
-        if (tile && tile->getTileType()==TileType::kYZ_EMPTY)
-        {
-            auto emptyNum = getEmptyBlockNumFromSubCol(subCol, m_iRows, col);
-            if (emptyNum==0) {
-                return false;
-            }
-            
-            auto targetTile = getTileByCoordinate(m_iRows-emptyNum, col);
-            auto targetTilePos = targetTile->getPosition();
-            targetTile->setPosition(tile->getPosition());
-            tile->createRandomElement();
-            swapTile(targetTile, tile);
-            tile->setPosition(Point(YZ_TILE_SIZE*tile->getCol(),YZ_TILE_SIZE*(m_iRows)));
-            auto moveAct = MoveTo::create(YZ_MOVE_DOWN_DURATION*emptyNum, Point(YZ_TILE_SIZE*tile->getCol(),YZ_TILE_SIZE*(m_iRows-emptyNum)));
-            auto callback = CallFuncN::create([](Node *node)->void{
-                auto tile = static_cast<YZTile*>(node);
-                tile->updatePosition();
-            });
-            tile->runAction(Sequence::create(moveAct,callback, nullptr));
-            delayRun(YZ_DELAY_CHECK, [subCol,col,this]()->void{
-                this->fillEmptyBlockForSubCol(subCol, col);
-            });
-            return true;
+//        findEmptyBlockForSubColAndReorder(subCol, col);
+//        auto tile = getTileByCoordinate(m_iRows-1, col);
+//        if (tile && tile->getTileType()==TileType::kYZ_EMPTY)
+//        {
+//            auto emptyNum = getEmptyBlockNumFromSubCol(subCol, m_iRows, col);
+//            if (emptyNum==0) {
+//                return false;
+//            }
+//            
+//            auto targetTile = getTileByCoordinate(m_iRows-emptyNum, col);
+//            auto targetTilePos = targetTile->getPosition();
+//            targetTile->setPosition(tile->getPosition());
+//            tile->createRandomElement();
+//            swapTile(targetTile, tile);
+//            tile->setPosition(Point(YZ_TILE_SIZE*tile->getCol(),YZ_TILE_SIZE*(m_iRows)));
+//            auto moveAct = MoveTo::create(YZ_MOVE_DOWN_DURATION*emptyNum, Point(YZ_TILE_SIZE*tile->getCol(),YZ_TILE_SIZE*(m_iRows-emptyNum)));
+//            auto callback = CallFuncN::create([](Node *node)->void{
+//                auto tile = static_cast<YZTile*>(node);
+//                tile->updatePosition();
+//            });
+//            tile->runAction(Sequence::create(moveAct,callback, nullptr));
+////            delayRun(YZ_DELAY_CHECK, [subCol,col,this]()->void{
+////                this->fillEmptyBlockForSubCol(subCol, col);
+////            });
+//            return true;
             /*  */
-            log("col:%d-------------创建新的元素 垂直填充下方空白的位置------------",col);
-            printData();
-        }
+//            log("col:%d-------------创建新的元素 垂直填充下方空白的位置------------",col);
+//            printData();
+//        }
     }
     return false;
 }
@@ -448,32 +452,59 @@ void TileMap::findEmptyBlockForSubColAndReorder(SubCol subCol, int col)
     {
         auto tile = getTileByCoordinate(row, col);
         
-//        if (row==m_iRows-1 && tile->getTileType()==TileType::kYZ_EMPTY)
-//        {
-//            tile->createRandomElement();
-//        }
-        
         if(tile->getTileType()==kYZ_EXIST)
         {
             //move down
-            auto emptyNum = getEmptyBlockNumFromSubCol(subCol, row, col);
-            if(emptyNum==0)
-            {
-                continue;
-            }
-            /* 在执行动画以前 行列坐标已经进行了更换  */
-            auto targetTile = getTileByCoordinate(row-emptyNum, col);
-            auto targetTilePos = targetTile->getPosition();
-            targetTile->setPosition(tile->getPosition());
-            swapTile(targetTile, tile);
-            auto moveAct = MoveTo::create(YZ_MOVE_DOWN_DURATION*emptyNum, targetTilePos);
-            auto callback = CallFuncN::create([](Node *node)->void{
-                auto tile = static_cast<YZTile*>(node);
-                tile->updatePosition();
-            });
-            tile->runAction(Sequence::create(moveAct,callback, nullptr));
+            slideDownTargetTile(subCol, tile);
         }
     }
+
+    createNewBlockBySubCol(subCol, col, 0);
+}
+
+void TileMap::createNewBlockBySubCol(SubCol subCol, int col, int virtualRow)
+{
+    virtualRow++;
+    auto row = subCol.end-1;
+    auto tile = getTileByCoordinate(row, col);
+
+    if (row==m_iRows-1 && tile->getTileType()==TileType::kYZ_EMPTY)
+    {
+        tile->createRandomElement();
+        tile->setVirtualRow(virtualRow);
+        tile->setPosition(Point(YZ_TILE_SIZE*tile->getCol(),YZ_TILE_SIZE*(tile->getRow()+tile->getVirtualRow())));
+        this->slideDownTargetTile(subCol, tile);
+        createNewBlockBySubCol(subCol, col, virtualRow);
+    }
+}
+
+void TileMap::slideDownTargetTile(SubCol subCol, YZTile *tile)
+{
+    auto row = tile->getRow();
+    if (row == m_iRows-1) {
+        row++;
+    }
+    auto emptyNum = getEmptyBlockNumFromSubCol(subCol, row, tile->getCol());
+    if(emptyNum==0 && row!=m_iRows)
+    {
+        return;
+    }
+    /* 在执行动画以前 行列坐标已经进行了更换  */
+    auto targetTile = getTileByCoordinate(tile->getRow()-emptyNum, tile->getCol());
+    auto targetTilePos = targetTile->getPosition();
+    targetTile->setPosition(tile->getPosition());
+    swapTile(targetTile, tile);
+    if (emptyNum==0) {
+        targetTilePos = Point(YZ_TILE_SIZE*tile->getCol(),YZ_TILE_SIZE*tile->getRow());
+    }
+    auto moveAct = MoveTo::create(YZ_MOVE_DOWN_DURATION*(emptyNum+tile->getVirtualRow()), targetTilePos);
+    auto callback = CallFuncN::create([](Node *node)->void{
+        auto tile = static_cast<YZTile*>(node);
+        tile->updatePosition();
+        tile->setVirtualRow(0);
+    });
+//    tile->stopAllActions();
+    tile->runAction(Sequence::create(moveAct,callback, nullptr));
 }
 
 // MARK:辅助型的方法

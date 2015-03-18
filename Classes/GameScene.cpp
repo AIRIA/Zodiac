@@ -30,7 +30,7 @@ void GameScene::onEnter()
     addChild(bg,-1);
     
     auto tileMap = TileMap::create();
-    tileMap->load("Level/map3.json");
+    tileMap->load("Level/map.json");
     tileMap->setAnchorPoint(Point::ANCHOR_MIDDLE);
     tileMap->setPosition(Point(YZ_DESIGN_WIDTH/2,YZ_DESIGN_HEIGHT/2));
     m_pMid->addChild(tileMap);
