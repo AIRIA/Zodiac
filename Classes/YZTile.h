@@ -17,8 +17,8 @@ enum TileType{
     kYZ_EXIST=2    //普通元素
 };
 
-#define YZ_DELAY_CHECK 0.2f
-#define YZ_MOVE_DOWN_DURATION 0.2f
+#define YZ_DELAY_CHECK 0.15f
+#define YZ_MOVE_DOWN_DURATION 0.15f
 
 class Route
 {

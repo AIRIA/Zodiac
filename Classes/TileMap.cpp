@@ -38,19 +38,18 @@ void TileMap::onEnter()
     srand(time(nullptr));
     
     
-//    for (auto col=0; col<m_iCols; col++)
-//    {
-////        vector<SubCol> cols;
-////        getSubCols(cols, 0, col);
-////        log("sub cols num:%ld",cols.size());
-//        updateSubColsForCol(col);
-//    }
+    
+    for (auto col=0; col<m_iCols; col++)
+    {
+        virtualRows.push_back(0);
+    }
     
     
 
 //    updateTilePositionByCol();
     
 //    printData();
+    updateSubCols();
 }
 
 // MARK: 逻辑方法和游戏业务相关
@@ -342,9 +341,9 @@ void TileMap::detectEmptyBlock()
     }
     
     if (flag) {
-        log("-------detected-------");
-        printData();
-//        updateSubCols();
+//        log("-------detected-------");
+//        printData();
+        updateSubCols();
 //        detectEmptyBlock();
         
     }
@@ -387,10 +386,19 @@ bool TileMap::fillEmptyBlockForSubCol(SubCol subCol, int col)
         
         if(topTile)
         {
-            log("检测到斜上方可移动元素:row:%d,col:%d",topTile->getRow(),topTile->getCol());
+//            log("检测到斜上方可移动元素:row:%d,col:%d",topTile->getRow(),topTile->getCol());
+            auto pos = topTile->getPositionByCoordinate();
+//            auto current = getTileByCoordinate(topRow-1, col);
+//            getNextRoutes(current);
+//            topTile->routes = current->routes;
+//            topTile->routes.insert(topTile->routes.begin(), Route(current->getRow(), current->getCol()));
+//            current->routes.clear();
             getNextRoutes(topTile);
-            log("col:%d--------斜下方移动元素 填充无法从顶部获得元素的列--------",col) ;
-            printData();
+            if (topTile->getPosition()==pos) {
+                topTile->updatePosition();
+            }
+//            log("col:%d--------斜下方移动元素 填充无法从顶部获得元素的列--------",col) ;
+//            printData();..
 //            delayRun(YZ_DELAY_CHECK, [subCol,col,this]()->void{
 //                this->fillEmptyBlockForSubCol(subCol, col);
 //            });
@@ -464,14 +472,19 @@ void TileMap::findEmptyBlockForSubColAndReorder(SubCol subCol, int col)
 
 void TileMap::createNewBlockBySubCol(SubCol subCol, int col, int virtualRow)
 {
-    virtualRow++;
+//    virtualRow++;
     auto row = subCol.end-1;
     auto tile = getTileByCoordinate(row, col);
 
     if (row==m_iRows-1 && tile->getTileType()==TileType::kYZ_EMPTY)
     {
+        
+        virtualRows[col] = virtualRows.at(col)+1;
+        
+        log("virtualRow:%d , col:%d",virtualRows[col],col);
+        
         tile->createRandomElement();
-        tile->setVirtualRow(virtualRow);
+        tile->setVirtualRow(virtualRows.at(col));
         tile->setPosition(Point(YZ_TILE_SIZE*tile->getCol(),YZ_TILE_SIZE*(tile->getRow()+tile->getVirtualRow())));
         this->slideDownTargetTile(subCol, tile);
         createNewBlockBySubCol(subCol, col, virtualRow);
@@ -487,23 +500,25 @@ void TileMap::slideDownTargetTile(SubCol subCol, YZTile *tile)
     auto emptyNum = getEmptyBlockNumFromSubCol(subCol, row, tile->getCol());
     if(emptyNum==0 && row!=m_iRows)
     {
+//        tile->stopAllActions();
         return;
     }
     /* 在执行动画以前 行列坐标已经进行了更换  */
     auto targetTile = getTileByCoordinate(tile->getRow()-emptyNum, tile->getCol());
-    auto targetTilePos = targetTile->getPosition();
+    auto targetTilePos = targetTile->getPositionByCoordinate();
     targetTile->setPosition(tile->getPosition());
     swapTile(targetTile, tile);
     if (emptyNum==0) {
         targetTilePos = Point(YZ_TILE_SIZE*tile->getCol(),YZ_TILE_SIZE*tile->getRow());
     }
-    auto moveAct = MoveTo::create(YZ_MOVE_DOWN_DURATION*(emptyNum+tile->getVirtualRow()), targetTilePos);
+    int gap = (tile->getPosition().y - targetTilePos.y)/YZ_TILE_SIZE;
+    auto moveAct = MoveTo::create(YZ_MOVE_DOWN_DURATION*(gap), targetTilePos);
+//    log("targetTilePos: x:%f,y:%f ,targetRow:%d,targetCol:%d,virtualRow:%d",targetTilePos.x,targetTilePos.y,targetTile->getRow(),targetTile->getCol(),tile->getVirtualRow());
     auto callback = CallFuncN::create([](Node *node)->void{
         auto tile = static_cast<YZTile*>(node);
         tile->updatePosition();
-        tile->setVirtualRow(0);
     });
-//    tile->stopAllActions();
+    tile->stopAllActions();
     tile->runAction(Sequence::create(moveAct,callback, nullptr));
 }
 

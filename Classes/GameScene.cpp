@@ -30,7 +30,7 @@ void GameScene::onEnter()
     addChild(bg,-1);
     
     auto tileMap = TileMap::create();
-    tileMap->load("Level/map.json");
+    tileMap->load("Level/map2.json");
     tileMap->setAnchorPoint(Point::ANCHOR_MIDDLE);
     tileMap->setPosition(Point(YZ_DESIGN_WIDTH/2,YZ_DESIGN_HEIGHT/2));
     m_pMid->addChild(tileMap);
@@ -41,10 +41,11 @@ void GameScene::onEnter()
 //        tileMap->updateTilePositionByCol();
 //        tileMap->fillEmptyBlockByCol() ;
 //        tileMap->updateTilePositionByRow();
-//        GameScene::create()->run();
+        GameScene::create()->run();
 //        tileMap->updateSubColsForCol(1);
-        tileMap->updateSubCols();
+//        tileMap->updateSubCols();
     });
+//    tileMap->setScale(0.5f);
     m_pTop->addChild(btn);
 }
 

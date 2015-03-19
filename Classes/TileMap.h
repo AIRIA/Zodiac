@@ -154,6 +154,8 @@ public:
     
     Vector<YZTile*> tiles;
     
+    std::vector<int> virtualRows;
+    
     // setter & getter
     CC_SYNTHESIZE(int, m_iRows, Rows);
     CC_SYNTHESIZE(int, m_iCols, Cols);
