@@ -14,6 +14,7 @@ bool YZTile::init()
         return false;
     }
     m_iVirtualRow = 0;
+    actionSeqVec.push_back(ActionSeq());
     return true;
 }
 

@@ -32,7 +32,7 @@ public:
     /** 
      *获取一个tile到达指定位置经过的所有点 
      */
-    void getNextRoutes(YZTile *tile,int row=-1,int col=-1);
+    void getNextRoutes(YZTile *tile,TileCheckPriority priority=kYZ_DOWN, int row=-1,int col=-1);
 
     /**
      * 根据行列坐标获取一个tile元素

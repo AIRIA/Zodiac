@@ -3,6 +3,22 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "GameMap::fallDownTileAndCreateForSubCol():GameMap.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "col">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GLOBAL">
+         <PersistentStrings>
+            <PersistentString
+               value = "this-&gt;printData();">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "HomeScene::onEnter()::$_0::operator()(BaseSprite*) const::&apos;lambda&apos;()::operator()() const:HomeScene.cpp">
          <PersistentStrings>
             <PersistentString
@@ -17,6 +33,9 @@
                value = "rowVal[1].GetString()">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameMap::getRoutes(YZTile*):GameMap.cpp">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

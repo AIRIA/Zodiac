@@ -8,6 +8,7 @@
 
 #include "GameScene.h"
 #include "TileMap.h"
+#include "GameMap.h"
 #include "ElasticButton.h"
 
 bool GameScene::init()
@@ -29,8 +30,8 @@ void GameScene::onEnter()
     bg->setScale(m_winSize.width/bg->getContentSize().width);
     addChild(bg,-1);
     
-    auto tileMap = TileMap::create();
-    tileMap->load("Level/map2.json");
+    auto tileMap = GameMap::create();
+    tileMap->load("Level/map4.json");
     tileMap->setAnchorPoint(Point::ANCHOR_MIDDLE);
     tileMap->setPosition(Point(YZ_DESIGN_WIDTH/2,YZ_DESIGN_HEIGHT/2));
     m_pMid->addChild(tileMap);
@@ -42,6 +43,7 @@ void GameScene::onEnter()
 //        tileMap->fillEmptyBlockByCol() ;
 //        tileMap->updateTilePositionByRow();
         GameScene::create()->run();
+//        tileMap->updateTilesPosition();
 //        tileMap->updateSubColsForCol(1);
 //        tileMap->updateSubCols();
     });

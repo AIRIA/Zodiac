@@ -17,6 +17,12 @@ enum TileType{
     kYZ_EXIST=2    //普通元素
 };
 
+enum TileCheckPriority{
+    kYZ_LEFT=0,
+    kYZ_DOWN=1,
+    kYZ_RIGHT=2
+};
+
 #define YZ_DELAY_CHECK 0.15f
 #define YZ_MOVE_DOWN_DURATION 0.15f
 
@@ -33,6 +39,15 @@ class SubCol
 public:
     SubCol(int b,int e):began(b),end(e){};
     int began,end;
+};
+
+class ActionSeq
+{
+public:
+    ActionSeq():action1(nullptr),action2(nullptr){
+        
+    };
+    MoveTo *action1,*action2;
 };
 
 class YZTile:public Node
@@ -64,6 +79,10 @@ public:
     Point getPositionByCoordinate();
     
     virtual void onEnter();
+    
+    Vector<FiniteTimeAction*> actionVec;
+    
+    std::vector<ActionSeq> actionSeqVec;
     
     /**
      * tile的类型 普通元素 阻挡元素 空 etc

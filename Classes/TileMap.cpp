@@ -54,6 +54,7 @@ void TileMap::onEnter()
 
 // MARK: 逻辑方法和游戏业务相关
 
+//MARK:√
 void TileMap::load(std::string mapName)
 {
     std::string jsonStr = FileUtils::getInstance()->getStringFromFile(mapName);
@@ -95,8 +96,8 @@ void TileMap::load(std::string mapName)
 
 
 
-
-void TileMap::getNextRoutes(YZTile *tile,int row,int col)
+//MARK:废弃
+void TileMap::getNextRoutes(YZTile *tile,TileCheckPriority priority, int row,int col)
 {
     row = row==-1?tile->getRow():row;
     col = col==-1?tile->getCol():col;
@@ -106,6 +107,49 @@ void TileMap::getNextRoutes(YZTile *tile,int row,int col)
     auto rightTile = getTileByCoordinate(row-1, col+1);
     
     Route route = Route(row-1,-1);
+//
+//    YZTile *checkTile = nullptr;
+//    
+//    std::vector<TileCheckPriority> priorityVec = {kYZ_LEFT,kYZ_DOWN,kYZ_RIGHT};
+//    priorityVec.erase(priorityVec.begin()+priority);
+//    priorityVec.insert(priorityVec.begin(), priority);
+//    
+//    while (priorityVec.size()>0) {
+//        priority = priorityVec.at(0);
+//        switch (priority) {
+//            case kYZ_DOWN:
+//                checkTile = downTile;
+//                if (downTile && downTile->getTileType()==TileType::kYZ_EMPTY)
+//                {
+//                    route.col = col;
+//                }
+//                break;
+//            case kYZ_LEFT:
+//                checkTile = leftTile;
+//                if(leftTile && leftTile->getTileType()==TileType::kYZ_EMPTY)
+//                {
+//                    route.col = col-1;
+//                }
+//                break;
+//            case kYZ_RIGHT:
+//                if(rightTile && rightTile->getTileType()==TileType::kYZ_EMPTY)
+//                {
+//                    route.col = col+1;
+//                }
+//                checkTile = rightTile;
+//                break;
+//            default:
+//                break;
+//        }
+//        if (checkTile)
+//        {
+//            break;
+//        }
+//        priorityVec.erase(priorityVec.begin());
+//    }
+    
+    
+    
     
     if (downTile && downTile->getTileType()==TileType::kYZ_EMPTY)
     {
@@ -133,10 +177,10 @@ void TileMap::getNextRoutes(YZTile *tile,int row,int col)
     }
     tile->routes.push_back(route);
     
-    getNextRoutes(tile,route.row,route.col);
+    getNextRoutes(tile,kYZ_DOWN, route.row,route.col);
     
 }
-
+//MARK:废弃
 void TileMap::updateTilePositionByCol()
 {
     for (auto col=0; col<m_iCols; col++)
@@ -174,7 +218,7 @@ void TileMap::updateTilePositionByCol()
     //每一列的断层处 需要从斜方向寻找元素的来源 如果是顶层则从上方获取元素
     
 }
-
+//MARK:废弃
 void TileMap::updateTilePositionByRow()
 {
     /**
@@ -207,7 +251,7 @@ void TileMap::updateTilePositionByRow()
     });
     
 }
-
+//MARK:废弃
 void TileMap::checkEmptyBlock()
 {
     /**
@@ -238,7 +282,7 @@ void TileMap::checkEmptyBlock()
     
 }
 
-
+//MARK:废弃
 void TileMap::fillEmptyBlockByCol(int col)
 {
     
@@ -271,6 +315,8 @@ void TileMap::fillEmptyBlockByCol(int col)
     
 }
 
+
+//MARK:废弃
 void TileMap::fillEmptyFromTop(int col)
 {
     auto row = m_iRows - 1;
@@ -298,6 +344,7 @@ void TileMap::fillEmptyFromTop(int col)
     log("changed over");
 }
 
+//MARK: 第一步
 void TileMap::updateSubCols()
 {
     for (auto col = 0; col<m_iCols; col++)
@@ -322,9 +369,9 @@ void TileMap::updateSubCols()
 //        }
 //    }
     
-    detectEmptyBlock();
+  //  detectEmptyBlock();
 }
-
+//MARK:第五步
 void TileMap::detectEmptyBlock()
 {
     bool flag = false;
@@ -348,7 +395,7 @@ void TileMap::detectEmptyBlock()
         
     }
 }
-
+//MARK:第六步
 bool TileMap::fillEmptyBlockForSubCol(SubCol subCol, int col)
 {
 //    findEmptyBlockForSubColAndReorder(subCol, col);
@@ -388,12 +435,22 @@ bool TileMap::fillEmptyBlockForSubCol(SubCol subCol, int col)
         {
 //            log("检测到斜上方可移动元素:row:%d,col:%d",topTile->getRow(),topTile->getCol());
             auto pos = topTile->getPositionByCoordinate();
-//            auto current = getTileByCoordinate(topRow-1, col);
+            auto current = getTileByCoordinate(topRow-1, col);
+//            TileCheckPriority priority;
+//            if (current->getCol()>topTile->getCol()) {
+//                priority = kYZ_RIGHT;
+//            }else{
+//                priority
+//            }
 //            getNextRoutes(current);
 //            topTile->routes = current->routes;
 //            topTile->routes.insert(topTile->routes.begin(), Route(current->getRow(), current->getCol()));
 //            current->routes.clear();
-            getNextRoutes(topTile);
+//            getNextRoutes(topTile);
+            topTile->routes.push_back(Route(current->getRow(), current->getCol()));
+            current->setPosition(topTile->getPositionByCoordinate());
+            swapTile(topTile, current);
+            
             if (topTile->getPosition()==pos) {
                 topTile->updatePosition();
             }
@@ -453,7 +510,7 @@ int TileMap::getEmptyBlockNumFromSubCol(SubCol sc,int row, int col)
     }
     return emptyNum;
 }
-
+//MARK:第二步
 void TileMap::findEmptyBlockForSubColAndReorder(SubCol subCol, int col)
 {
     for (auto row=subCol.began; row<subCol.end; row++)
@@ -469,7 +526,7 @@ void TileMap::findEmptyBlockForSubColAndReorder(SubCol subCol, int col)
 
     createNewBlockBySubCol(subCol, col, 0);
 }
-
+//MARK:第四步
 void TileMap::createNewBlockBySubCol(SubCol subCol, int col, int virtualRow)
 {
 //    virtualRow++;
@@ -490,7 +547,7 @@ void TileMap::createNewBlockBySubCol(SubCol subCol, int col, int virtualRow)
         createNewBlockBySubCol(subCol, col, virtualRow);
     }
 }
-
+//MARK:第三部
 void TileMap::slideDownTargetTile(SubCol subCol, YZTile *tile)
 {
     auto row = tile->getRow();
@@ -507,13 +564,14 @@ void TileMap::slideDownTargetTile(SubCol subCol, YZTile *tile)
     auto targetTile = getTileByCoordinate(tile->getRow()-emptyNum, tile->getCol());
     auto targetTilePos = targetTile->getPositionByCoordinate();
     targetTile->setPosition(tile->getPosition());
+    log("targetTilePos: x:%f,y:%f ,targetRow:%d,targetCol:%d,currentCol:%d",targetTilePos.x,targetTilePos.y,targetTile->getRow(),targetTile->getCol(),tile->getCol());
     swapTile(targetTile, tile);
     if (emptyNum==0) {
         targetTilePos = Point(YZ_TILE_SIZE*tile->getCol(),YZ_TILE_SIZE*tile->getRow());
     }
     int gap = (tile->getPosition().y - targetTilePos.y)/YZ_TILE_SIZE;
     auto moveAct = MoveTo::create(YZ_MOVE_DOWN_DURATION*(gap), targetTilePos);
-//    log("targetTilePos: x:%f,y:%f ,targetRow:%d,targetCol:%d,virtualRow:%d",targetTilePos.x,targetTilePos.y,targetTile->getRow(),targetTile->getCol(),tile->getVirtualRow());
+    
     auto callback = CallFuncN::create([](Node *node)->void{
         auto tile = static_cast<YZTile*>(node);
         tile->updatePosition();

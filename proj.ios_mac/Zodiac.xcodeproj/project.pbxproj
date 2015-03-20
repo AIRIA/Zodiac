@@ -12,6 +12,8 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
+		41021FDC1ABAAB7A009BC79B /* GameMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41021FDA1ABAAB7A009BC79B /* GameMap.cpp */; };
+		41021FDD1ABAAB7A009BC79B /* GameMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41021FDA1ABAAB7A009BC79B /* GameMap.cpp */; };
 		416301CD1AA95B500031D5F3 /* Button in Resources */ = {isa = PBXBuildFile; fileRef = 416301CC1AA95B500031D5F3 /* Button */; };
 		416301CE1AA95B510031D5F3 /* Button in Resources */ = {isa = PBXBuildFile; fileRef = 416301CC1AA95B500031D5F3 /* Button */; };
 		416301D11AA976D60031D5F3 /* BaseSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 416301CF1AA976D60031D5F3 /* BaseSprite.cpp */; };
@@ -126,6 +128,8 @@
 		1D6058910D05DD3D006BFB54 /* Zodiac iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Zodiac iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		41021FDA1ABAAB7A009BC79B /* GameMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameMap.cpp; sourceTree = "<group>"; };
+		41021FDB1ABAAB7A009BC79B /* GameMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMap.h; sourceTree = "<group>"; };
 		416301CC1AA95B500031D5F3 /* Button */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Button; sourceTree = "<group>"; };
 		416301CF1AA976D60031D5F3 /* BaseSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseSprite.cpp; sourceTree = "<group>"; };
 		416301D01AA976D60031D5F3 /* BaseSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseSprite.h; sourceTree = "<group>"; };
@@ -316,6 +320,8 @@
 				419F31741AB16EAB005F044B /* TileMap.h */,
 				419F31771AB16EBE005F044B /* YZTile.cpp */,
 				419F31781AB16EBE005F044B /* YZTile.h */,
+				41021FDA1ABAAB7A009BC79B /* GameMap.cpp */,
+				41021FDB1ABAAB7A009BC79B /* GameMap.h */,
 			);
 			name = modal;
 			sourceTree = "<group>";
@@ -583,6 +589,7 @@
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				416301E11AAD77EF0031D5F3 /* YZTableView.cpp in Sources */,
+				41021FDC1ABAAB7A009BC79B /* GameMap.cpp in Sources */,
 				419F316D1AB13381005F044B /* GameScene.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				41AF2DD91AA84DE8009BCB8D /* HomeScene.cpp in Sources */,
@@ -606,6 +613,7 @@
 				416301DE1AAD43640031D5F3 /* LevelMap.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				419F31761AB16EAB005F044B /* TileMap.cpp in Sources */,
+				41021FDD1ABAAB7A009BC79B /* GameMap.cpp in Sources */,
 				41AF2DE11AA85A89009BCB8D /* VisibleRect.cpp in Sources */,
 				416301D61AAD37190031D5F3 /* ElasticButton.cpp in Sources */,
 				416301D21AA976D60031D5F3 /* BaseSprite.cpp in Sources */,
