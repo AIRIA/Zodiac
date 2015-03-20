@@ -315,28 +315,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/GameMap.cpp"
-            timestampString = "448529524.587989"
+            timestampString = "448538604.821777"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
-            landmarkName = "GameMap::fallDownTileAndCreateForSubCol()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            condition = "col==5"
-            continueAfterRunningActions = "No"
-            filePath = "../Classes/GameMap.cpp"
-            timestampString = "448529524.587989"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
+            startingLineNumber = "209"
+            endingLineNumber = "209"
             landmarkName = "GameMap::fallDownTileAndCreateForSubCol()"
             landmarkType = "5">
          </BreakpointContent>
@@ -361,32 +344,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/GameMap.cpp"
-            timestampString = "448529524.587989"
+            timestampString = "448538134.33673"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "401"
-            endingLineNumber = "401"
-            landmarkName = "GameMap::getRoutes(YZTile *tile)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../Classes/GameMap.cpp"
-            timestampString = "448529524.587989"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "407"
-            endingLineNumber = "407"
-            landmarkName = "GameMap::getRoutes(YZTile *tile)"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
+            landmarkName = "GameMap::fallDownTileAndCreateForSubCol()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -395,14 +362,13 @@
          <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
-            condition = "col==4"
             continueAfterRunningActions = "No"
             filePath = "../Classes/GameMap.cpp"
-            timestampString = "448527760.084898"
+            timestampString = "448538159.228242"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
             landmarkName = "GameMap::fallDownTileAndCreateForSubCol()"
             landmarkType = "5">
          </BreakpointContent>
@@ -410,15 +376,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/GameMap.cpp"
-            timestampString = "448529524.587989"
+            timestampString = "448538604.821777"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
             landmarkName = "GameMap::fallDownTileAndCreateForSubCol()"
             landmarkType = "5">
          </BreakpointContent>

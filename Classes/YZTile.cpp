@@ -44,6 +44,34 @@ void YZTile::updatePosition()
 
 }
 
+void YZTile::runActionSeqVec()
+{
+    Vector<FiniteTimeAction*> actionVec;
+    for (auto actionSeq : actionSeqVec)
+    {
+        Vector<FiniteTimeAction*> subActionVec;
+        for (auto route:actionSeq.routes)
+        {
+            auto moveTo = MoveTo::create(YZ_MOVE_DOWN_DURATION, Point(YZ_TILE_SIZE*route.col,YZ_TILE_SIZE*route.row));
+            subActionVec.pushBack(moveTo);
+        }
+        if (actionSeq.fallAction)
+        {
+            subActionVec.pushBack(actionSeq.fallAction);
+        }
+        actionVec.pushBack(subActionVec);
+    }
+    if (actionVec.size()) {
+        auto callback = CallFuncN::create([](Node *node)->void{
+            auto self = static_cast<YZTile*>(node);
+            self->actionSeqVec.clear();
+            self->actionSeqVec.push_back(ActionSeq());
+        });
+        actionVec.pushBack(callback);
+        runAction(Sequence::create(actionVec));
+    }
+}
+
 void YZTile::createRandomElement()
 {
     removeAllChildren();
@@ -70,7 +98,7 @@ void YZTile::onEnter()
     if (isShow >4) {
         return;
     }
-    createRandomElement();
+//    createRandomElement();
     
     
 }

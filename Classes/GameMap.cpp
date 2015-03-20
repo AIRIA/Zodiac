@@ -38,7 +38,7 @@ void GameMap::onEnter()
         virtualRows.push_back(0);
     }
     
-//    updateTilesPosition();
+    updateTilesPosition();
     
 }
 
@@ -123,7 +123,7 @@ void GameMap::fallDownTileAndCreateForSubCol()
                     //第一次循环 只判断降落 不判断斜方向
                     else if(row==(subCol.end-1) && time!=1) //断层的顶部 从旁边列 获取新的tile并交换位置 同时放入到tile的routes中
                     {
-                        YZTile *source = nullptr;
+                        YZTile *source = nullptr; //顶部来源
                         auto subTopTile = getTileByCoordinate(subCol.end-1, col);
                         log("col:%d,subTopTile row:%d,col:%d",col,subTopTile->getRow(),subTopTile->getCol());
                         
@@ -163,6 +163,7 @@ void GameMap::fallDownTileAndCreateForSubCol()
                         }
                         if (source)
                         {
+                            source->routes.clear();
                             auto pos = source->getPositionByCoordinate();
                             source->routes.push_back(Route(subTopTile->getRow(),subTopTile->getCol()));
                             getRoutes(subTopTile);
@@ -173,13 +174,26 @@ void GameMap::fallDownTileAndCreateForSubCol()
                             }
                             swapTile(subTopTile, source);
                             
-                            if (source->getPosition()==pos) {
-                                source->stopAllActions(); // 必须要停止正在运行的action 因为这个可能会导致运行重复的updatePosition操作
-                                source->updatePosition();
-                            }
+//                            if (source->getPosition()==pos) {
+//                                source->stopAllActions(); // 必须要停止正在运行的action 因为这个可能会导致运行重复的updatePosition操作
+//                                source->updatePosition();
+//                            }
+                            
                             subTopTile->routes.clear();
                             log("------------");
                             source->printRoutes();
+                            /* save routes */
+                            auto idx = source->actionSeqVec.size();
+                            auto routeVec = source->actionSeqVec.at(idx-1).routes;
+                            auto fallAction = source->actionSeqVec.at(idx-1).fallAction;
+                            if (routeVec.size()==0 && fallAction==nullptr) {
+                                source->actionSeqVec.at(idx-1).routes = source->routes;
+                            }
+                            else
+                            {
+                                source->actionSeqVec.push_back(ActionSeq());
+                                source->actionSeqVec.at(idx).routes = source->routes;
+                            }
                         }
                     }
                     
@@ -195,15 +209,15 @@ void GameMap::fallDownTileAndCreateForSubCol()
                         auto targetPos = targetTile->getPositionByCoordinate();
                         int gap = (tile->getPosition().y - targetPos.y)/YZ_TILE_SIZE;
                         auto moveAct = MoveTo::create(YZ_MOVE_DOWN_DURATION*gap, targetPos);
-                        auto moveCallback = CallFuncN::create([](Node *node)->void{
-                            auto tile = static_cast<YZTile*>(node);
-                            
-                            tile->updatePosition();
-                        });
-                        tile->cleanup();
-                        tile->actionVec.pushBack(moveAct);
-                        tile->actionVec.pushBack(moveCallback);
-                        tile->runAction(Sequence::create(moveAct,moveCallback, NULL));
+//                        auto moveCallback = CallFuncN::create([](Node *node)->void{
+//                            auto tile = static_cast<YZTile*>(node);
+//                            
+//                            tile->updatePosition();
+//                        });
+                        //如果第一个actionseq
+                        auto idx = tile->actionSeqVec.size();
+                        tile->actionSeqVec.at(idx-1).fallAction = moveAct;
+//                        tile->runAction(Sequence::create(moveAct,moveCallback, NULL));
                         swapTile(tile, targetTile);
                         
                     }
@@ -211,6 +225,16 @@ void GameMap::fallDownTileAndCreateForSubCol()
             }
         }
         printData();
+    }
+    
+    for (auto row=0; row<m_iRows; row++) {
+        
+        for (auto col=0; col<m_iCols; col++) {
+            auto tile = getTileByCoordinate(row, col);
+            if (tile) {
+                tile->runActionSeqVec();
+            }
+        }
     }
     
 }

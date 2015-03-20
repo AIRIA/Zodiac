@@ -23,8 +23,8 @@ enum TileCheckPriority{
     kYZ_RIGHT=2
 };
 
-#define YZ_DELAY_CHECK 0.15f
-#define YZ_MOVE_DOWN_DURATION 0.15f
+#define YZ_DELAY_CHECK 0.1f
+#define YZ_MOVE_DOWN_DURATION 0.1f
 
 class Route
 {
@@ -44,10 +44,15 @@ public:
 class ActionSeq
 {
 public:
-    ActionSeq():action1(nullptr),action2(nullptr){
-        
-    };
-    MoveTo *action1,*action2;
+    ActionSeq():fallAction(nullptr){};
+    /**
+     * 路线
+     */
+    std::vector<Route> routes;
+    /**
+     * 下落的action
+     */
+    MoveTo *fallAction;
 };
 
 class YZTile:public Node
@@ -72,6 +77,11 @@ public:
      * 生成随机的消除元素
      */
     void createRandomElement();
+    
+    /**
+     * 执行路点移动和垂直下降的操作
+     */
+    void runActionSeqVec();
     
     /**
      * 根据行列获取坐标
