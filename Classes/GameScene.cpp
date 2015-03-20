@@ -42,8 +42,8 @@ void GameScene::onEnter()
 //        tileMap->updateTilePositionByCol();
 //        tileMap->fillEmptyBlockByCol() ;
 //        tileMap->updateTilePositionByRow();
-        GameScene::create()->run();
-//        tileMap->updateTilesPosition();
+//        GameScene::create()->run();
+        tileMap->updateTilesPosition();
 //        tileMap->updateSubColsForCol(1);
 //        tileMap->updateSubCols();
     });

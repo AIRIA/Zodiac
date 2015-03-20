@@ -38,7 +38,7 @@ void GameMap::onEnter()
         virtualRows.push_back(0);
     }
     
-    updateTilesPosition();
+//    updateTilesPosition();
     
 }
 
@@ -174,7 +174,7 @@ void GameMap::fallDownTileAndCreateForSubCol()
                             swapTile(subTopTile, source);
                             
                             if (source->getPosition()==pos) {
-                                source->stopAllActions();
+                                source->stopAllActions(); // 必须要停止正在运行的action 因为这个可能会导致运行重复的updatePosition操作
                                 source->updatePosition();
                             }
                             subTopTile->routes.clear();
