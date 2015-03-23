@@ -208,13 +208,19 @@ void GameMap::fallDownTileAndCreateForSubCol()
                         auto targetTile = getTileByCoordinate(row-emptyNum, col);
                         auto targetPos = targetTile->getPositionByCoordinate();
                         int gap = (tile->getPosition().y - targetPos.y)/YZ_TILE_SIZE;
+                        /* 如果是第二次垂直降落的话 需要从行列坐标计算以后获得的位置为基准位置 */
+                        if(tile->actionSeqVec.size()>1)
+                        {
+                            gap = (tile->getPositionByCoordinate().y - targetPos.y)/YZ_TILE_SIZE;
+                        }
+                        
                         auto moveAct = MoveTo::create(YZ_MOVE_DOWN_DURATION*gap, targetPos);
 //                        auto moveCallback = CallFuncN::create([](Node *node)->void{
 //                            auto tile = static_cast<YZTile*>(node);
 //                            
 //                            tile->updatePosition();
 //                        });
-                        //如果第一个actionseq
+                        //垂直下落 更新最后一个ActionSeq中的fallAction 不能破坏之前的
                         auto idx = tile->actionSeqVec.size();
                         tile->actionSeqVec.at(idx-1).fallAction = moveAct;
 //                        tile->runAction(Sequence::create(moveAct,moveCallback, NULL));

@@ -98,7 +98,7 @@ void YZTile::onEnter()
     if (isShow >4) {
         return;
     }
-//    createRandomElement();
+    createRandomElement();
     
     
 }
